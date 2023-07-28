@@ -1,0 +1,30 @@
+﻿<Window x:Class="WPF_Dataset.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Dataset"
+        mc:Ignorable="d"
+        Title="Users DB" Height="450" Width="800" Icon="/Iconshock-Real-Vista-Project-Managment-Data-management.256.png">
+    <StackPanel>
+        <Menu x:Name="menu" IsMainMenu="True">
+            <MenuItem Header="Save" Click="ClickSave"/>
+            <MenuItem Header="Show Default/Refresh" Click="ClickRefresh"/>
+            <MenuItem Header="Show by role">
+                <MenuItem Header="Show only Admins" Click="ClickFilterByAdmins"/>
+                <MenuItem Header="Show only Moderators" Click="ClickFilterByModerators"/>
+                <MenuItem Header="Show only Users" Click="ClickFilterByUsers"/>
+            </MenuItem>
+            <MenuItem Header="Delete by role">
+                <MenuItem Header="Delete Admins" Click="ClickDeleteAdmins"/>
+                <MenuItem Header="Delete Moderators" Click="ClickDeleteModerators"/>
+                <MenuItem Header="Delete Users" Click="ClickDeleteUsers"/>
+            </MenuItem>
+        </Menu>
+        <ScrollViewer>
+            <Grid>
+                <DataGrid x:Name="grid"></DataGrid>
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</Window>

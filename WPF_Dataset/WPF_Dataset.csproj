@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>UsersDB</AssemblyName>
+    <ApplicationIcon>Iconshock-Real-Vista-Project-Managment-Data-management.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Iconshock-Real-Vista-Project-Managment-Data-management.256.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Iconshock-Real-Vista-Project-Managment-Data-management.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Iconshock-Real-Vista-Project-Managment-Data-management.256.png" />
+  </ItemGroup>
+
+</Project>
