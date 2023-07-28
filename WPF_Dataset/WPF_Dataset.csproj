@@ -6,15 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <AssemblyName>UsersDB</AssemblyName>
-    <ApplicationIcon>Iconshock-Real-Vista-Project-Managment-Data-management.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Iconshock-Real-Vista-Project-Managment-Data-management.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Iconshock-Real-Vista-Project-Managment-Data-management.256.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Iconshock-Real-Vista-Project-Managment-Data-management.ico" />
+    <Content Include="Resources\Iconshock-Real-Vista-Project-Managment-Data-management.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Iconshock-Real-Vista-Project-Managment-Data-management.256.png" />
+    <Resource Include="Resources\Iconshock-Real-Vista-Project-Managment-Data-management.256.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Dataset"
         mc:Ignorable="d"
-        Title="Users DB" Height="450" Width="800" Icon="/Iconshock-Real-Vista-Project-Managment-Data-management.256.png">
+        Title="Users DB" Height="450" Width="800" Icon="/Resources/Iconshock-Real-Vista-Project-Managment-Data-management.256.png">
     <StackPanel>
         <Menu x:Name="menu" IsMainMenu="True">
             <MenuItem Header="Save" Click="ClickSave"/>
