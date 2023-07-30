@@ -21,8 +21,8 @@
             </MenuItem>
             <MenuItem Header="Delete by role">
                 <MenuItem Header="Delete Admins" Command="{Binding DeleteCommand}" CommandParameter="admins"/>
-                <MenuItem Header="Delete Moderators"/>
-                <MenuItem Header="Delete Users" />
+                <MenuItem Header="Delete Moderators" Command="{Binding DeleteCommand}" CommandParameter="moderators"/>
+                <MenuItem Header="Delete Users" Command="{Binding DeleteCommand}" CommandParameter="users"/>
             </MenuItem>
         </Menu>
         <ScrollViewer>
