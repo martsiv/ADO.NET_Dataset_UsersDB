@@ -51,14 +51,21 @@
                         <DataGridTemplateColumn Header="Role">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <!-- ComboBox для вибору ролі -->
-                                    <ComboBox ItemsSource="{Binding DataContext.Roles, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                  DisplayMemberPath="RoleName"
-                                  SelectedValue="{Binding RoleID}"
-                                  SelectedValuePath="RoleID" 
-                                  IsReadOnly="True" />
+                                    <!-- Прив'язка до властивості RoleID -->
+                                    <TextBlock Text="{Binding RoleID}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <!-- ComboBox для вибору ролі -->
+                                    <ComboBox ItemsSource=
+                                              "{Binding DataContext.Roles, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                  DisplayMemberPath="RoleName"
+                                  SelectedValue="{Binding RoleID}"
+                                  SelectedValuePath="RoleID" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>

@@ -74,35 +74,17 @@ namespace WPF_Dataset
         {
             if (e.Action == DataRowAction.Add)
             {
-                // Отримуємо рядок, який було додано
                 DataRow addedRow = e.Row;
-                // Використовуйте addedRow для доступу до даних рядка та його властивостей
-                // наприклад, addedRow["ColumnName"] або addedRow[columnIndex]
-                string str = e.Row["Role name"] as string;
-                MessageBox.Show($"Новий рядок було додано.");
-                Console.WriteLine("Новий рядок було додано.");
             }
             else if (e.Action == DataRowAction.Change)
             {
-                // Отримуємо рядок, який було змінено
                 DataRow changedRow = e.Row;
-                // Використовуйте changedRow для доступу до даних рядка та його властивостей
-                // наприклад, changedRow["ColumnName"] або changedRow[columnIndex]
-                DataRow addedRow = e.Row;
-                // Використовуйте addedRow для доступу до даних рядка та його властивостей
-                // наприклад, addedRow["ColumnName"] або addedRow[columnIndex]
                 int? str = e.Row["RoleID"] as int?;
                 MessageBox.Show($"Рядок було змінено. {str}");
-                Console.WriteLine("Рядок було змінено.");
             }
             else if (e.Action == DataRowAction.Delete)
             {
-                // Отримуємо рядок, який було видалено
                 DataRow deletedRow = e.Row;
-                // Використовуйте deletedRow для доступу до даних рядка та його властивостей
-                // наприклад, deletedRow["ColumnName"] або deletedRow[columnIndex]
-
-                Console.WriteLine("Рядок було видалено.");
             }
         }
         //---------------------------------------------
