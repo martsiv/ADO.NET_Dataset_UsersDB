@@ -36,13 +36,27 @@
                         <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
                         <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" />
                         <!-- Власний шаблон для створення ComboBox -->
-                        <DataGridTemplateColumn Header="Role name">
+                        <!--<DataGridTemplateColumn Header="Role name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding DataContext.Roles, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                       DisplayMemberPath="RoleName"
                       SelectedValue="{Binding RoleID}"
                       SelectedValuePath="RoleID" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+
+                        <!-- Використовуйте DataGridTemplateColumn для створення ComboBox -->
+                        <DataGridTemplateColumn Header="Role">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!-- ComboBox для вибору ролі -->
+                                    <ComboBox ItemsSource="{Binding DataContext.Roles, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                  DisplayMemberPath="RoleName"
+                                  SelectedValue="{Binding RoleID}"
+                                  SelectedValuePath="RoleID" 
+                                  IsReadOnly="True" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
