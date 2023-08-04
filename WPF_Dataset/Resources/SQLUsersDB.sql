@@ -1,10 +1,16 @@
-﻿create database UsersDB
+﻿if db_id('UsersDB') is not null
+begin
+	drop database UsersDB;
+end
+go
+
+create database UsersDB
 go
 use UsersDB
 go
 create table Roles
 (
-	ID int primary key identity,
+	ID int primary key identity(0,1),
 	[Role name] nvarchar(50) not null,
 );
 go
@@ -34,12 +40,12 @@ go
 insert into [Users]
 ([Login], [Password], [Address], [Phone], [RoleID])
 values
-		('Leonard', 'J32234r23I', 'Rivne, Soborna 13', '380958417483', 1),
-		('Delamene', 'k384E385q43', 'Rivne, Drahomanova 25', '380972658190', 1),
-		('Fred', 'He3938tW2l', 'Rivne, Wasylkiwska 17', '380937582943', 2),
-		('John', 'L34895F34476q', 'Rivne, Karnaukhowa 15', '380673859104', 2),
-		('Bernard', '457H43487q42', 'Rivne, Bila 5', '380735618503', 3),
-		('Harry', 'L3434i355398Q', 'Rivne, Dubenska 172', '380983950271', 3);
+		('Leonard', 'J32234r23I', 'Rivne, Soborna 13', '380958417483', 0),
+		('Delamene', 'k384E385q43', 'Rivne, Drahomanova 25', '380972658190', 0),
+		('Fred', 'He3938tW2l', 'Rivne, Wasylkiwska 17', '380937582943', 1),
+		('John', 'L34895F34476q', 'Rivne, Karnaukhowa 15', '380673859104', 1),
+		('Bernard', '457H43487q42', 'Rivne, Bila 5', '380735618503', 2),
+		('Harry', 'L3434i355398Q', 'Rivne, Dubenska 172', '380983950271', 2);
 go
 
 create or alter proc sp_delete_admins

@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using PropertyChanged;
 using System.Configuration;
 using System.Windows.Input;
+using System.Text.RegularExpressions;
 
 namespace WPF_Dataset
 {
@@ -45,7 +46,7 @@ namespace WPF_Dataset
             connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
             LoadTable();
             LoadRoles();
-            dataSet.Tables[0].RowChanged += OnRowChanged;
+            dataSet.Tables[0].RowChanging += OnRowChanging;
             
         }
         private void LoadRoles()
@@ -70,22 +71,84 @@ namespace WPF_Dataset
             }
         }
 
-        private void OnRowChanged(object sender, DataRowChangeEventArgs e)
+        private void OnRowChanging(object sender, DataRowChangeEventArgs e)
         {
+            DataRow currentRow = e.Row;
+            string loginValue = currentRow.Field<string>("Login");
+            string passwordValue = currentRow.Field<string>("Password");
+            string phoneValue = currentRow.Field<string>("Phone");
             if (e.Action == DataRowAction.Add)
             {
-                DataRow addedRow = e.Row;
+                if (!CheckLogin(loginValue))
+                {
+                    MessageBox.Show($"Incorrect login");
+                    currentRow.RowError = "Incorrect login";
+                }
+                else if (!IsPasswordValid(passwordValue))
+                {
+                    MessageBox.Show($"Incorrect password");
+                    currentRow.RowError = "Incorrect password";
+                }
+                else if (!IsPhoneNumberValid(phoneValue))
+                {
+                    MessageBox.Show($"Incorrect phone number");
+                    currentRow.RowError = "Incorrect phone number";
+                }
             }
             else if (e.Action == DataRowAction.Change)
             {
-                DataRow changedRow = e.Row;
-                int? str = e.Row["RoleID"] as int?;
-                MessageBox.Show($"Рядок було змінено. {str}");
+                if (e.Row.Table.Columns.Contains("Login"))
+                {
+                    // Отримати нове значення зміненої колонки "Login"
+                    string newLogin = e.Row["Login"].ToString();
+
+                    // Перевірити, чи новий логін збігається з іншими логінами в таблиці
+                    foreach (DataRow row in e.Row.Table.Rows)
+                    {
+                        // Пропускаємо перевірку самого рядка, що ми змінюємо
+                        if (row == currentRow)
+                            continue;
+
+                        // Отримати логін існуючого рядка
+                        string existingLogin = row["Login"].ToString();
+
+                        // Порівнюємо логіни
+                        if (newLogin == existingLogin)
+                        {
+                            // Відхиляємо зміни, кинувши виключення або встановивши помилку.
+                            // Наприклад, можемо встановити помилку для рядка.
+                            e.Row.RowError = "Such a login already exists, changes cannot be accepted.";
+                            MessageBox.Show($"Such a login already exists, changes cannot be accepted.");
+                            return; // Вихід з обробника, зміни не будуть застосовані до таблиці.
+                        }
+                    }
+                }
+                else if (!IsPasswordValid(passwordValue))
+                {
+                    MessageBox.Show($"Incorrect password");
+                    currentRow.RowError = "Incorrect password";
+                }
+                else if (!IsPhoneNumberValid(phoneValue))
+                {
+                    MessageBox.Show($"Incorrect phone number");
+                    currentRow.RowError = "Incorrect phone number";
+                }
             }
             else if (e.Action == DataRowAction.Delete)
             {
                 DataRow deletedRow = e.Row;
             }
+        }
+        private bool CheckLogin(string loginToCheck) => !(dataSet.Tables[0].AsEnumerable().Any(row => row.Field<string>("Login") == loginToCheck));
+        private bool IsPasswordValid(string passwordToCheck)
+        {
+            string passwordPattern = @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
+            return Regex.IsMatch(passwordToCheck, passwordPattern);
+        }
+        private bool IsPhoneNumberValid(string phoneToCheck)
+        {
+            string phonePattern = @"^380\d{9}$";
+            return Regex.IsMatch(phoneToCheck, phonePattern);
         }
         //---------------------------------------------
         private void LoadTable()
@@ -99,7 +162,7 @@ namespace WPF_Dataset
 
             DataRows = dataSet.Tables[0].DefaultView;
         }
-        private void ClickSave()
+        private void ClickSave()    //Тут ловлю виключення, якщо введені дані не валідні
         {
             try
             {
@@ -123,9 +186,9 @@ namespace WPF_Dataset
             string filterExpression = $"RoleID = {roleID}";
             DataRows.RowFilter = filterExpression;
         }
-        private void ClickFilterByAdmins(object sender, RoutedEventArgs e) => SetFilterByRole(1);
-        private void ClickFilterByModerators(object sender, RoutedEventArgs e) => SetFilterByRole(2);
-        private void ClickFilterByUsers(object sender, RoutedEventArgs e) => SetFilterByRole(3);
+        private void ClickFilterByAdmins(object sender, RoutedEventArgs e) => SetFilterByRole(0);
+        private void ClickFilterByModerators(object sender, RoutedEventArgs e) => SetFilterByRole(1);
+        private void ClickFilterByUsers(object sender, RoutedEventArgs e) => SetFilterByRole(2);
 
         //Procedure calls
         private void ExecuteProcedure(string sp_name)

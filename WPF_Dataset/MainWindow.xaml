@@ -28,48 +28,26 @@
         <ScrollViewer>
             <Grid>
                 <DataGrid x:Name="grid" AutoGenerateColumns="False" ItemsSource="{Binding DataRows}">
-                    <!-- Останній стовпець буде містити ComboBox -->
                     <DataGrid.Columns>
-                        <!-- Інші стовпці, які вже є в таблиці -->
                         <DataGridTextColumn Header="Login" Binding="{Binding Login}" />
                         <DataGridTextColumn Header="Password" Binding="{Binding Password}" />
                         <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
                         <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" />
-                        <!-- Власний шаблон для створення ComboBox -->
-                        <!--<DataGridTemplateColumn Header="Role name">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding DataContext.Roles, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                      DisplayMemberPath="RoleName"
-                      SelectedValue="{Binding RoleID}"
-                      SelectedValuePath="RoleID" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
-
-                        <!-- Використовуйте DataGridTemplateColumn для створення ComboBox -->
                         <DataGridTemplateColumn Header="Role">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <!-- Прив'язка до властивості RoleID -->
-                                    <TextBlock Text="{Binding RoleID}" />
+                                    <ComboBox 
+                                        ItemsSource= "{Binding DataContext.Roles,
+                                            RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                        SelectedIndex="{Binding RoleID,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}" 
+                                        DisplayMemberPath="RoleName"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                            <DataGridTemplateColumn.CellEditingTemplate>
-                                <DataTemplate>
-                                    <!-- ComboBox для вибору ролі -->
-                                    <ComboBox ItemsSource=
-                                              "{Binding DataContext.Roles, 
-                                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                  DisplayMemberPath="RoleName"
-                                  SelectedValue="{Binding RoleID}"
-                                  SelectedValuePath="RoleID" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellEditingTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-
             </Grid>
         </ScrollViewer>
     </StackPanel>
